@@ -19,4 +19,20 @@ public class ControllerEntry {
     public void setField(String field) {
         this.field = field;
     }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "ControllerEntry{" +
+                "field='" + field + '\'' +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }
