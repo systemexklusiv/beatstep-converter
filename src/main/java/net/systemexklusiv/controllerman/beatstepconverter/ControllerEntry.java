@@ -1,6 +1,11 @@
 package net.systemexklusiv.controllerman.beatstepconverter;
 
 public class ControllerEntry {
+    public static final String PRESET_START = "{";
+    public static final String PRESET_END = "}";
+    public static final String DEVICE_NAME_TUPLE = "\"device\": \"BeatStep\"";
+
+
     String field;
     String value;
 

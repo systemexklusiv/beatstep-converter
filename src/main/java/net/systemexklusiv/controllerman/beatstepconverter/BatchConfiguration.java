@@ -63,6 +63,11 @@ public class BatchConfiguration {
     public ControllerEntryItemProcessor processor() {
         return new ControllerEntryItemProcessor();
     }
+    @Bean
+    @StepScope
+    public ControllerEntryItemWriter controllerEntryItemWriter (@Value("#{jobParameters['file.output']}") String output) {
+        return new ControllerEntryItemWriter(output);
+    }
 
     @Bean
     @StepScope
@@ -77,14 +82,13 @@ public class BatchConfiguration {
                 .build();
     }
 
-
     @Bean
-    public Step step1(ControllerEntryItemReader controllerEntryItemReader,JsonFileItemWriter<ControllerEntry> jsonItemWriter) {
+    public Step step1(ControllerEntryItemReader controllerEntryItemReader,ControllerEntryItemWriter controllerEntryItemWriter) {
         return stepBuilderFactory.get("step1")
-                .<ControllerEntry, ControllerEntry> chunk(10)
+                .<ControllerEntry, ControllerEntry> chunk(300)
                 .reader(controllerEntryItemReader)
                 .processor(processor())
-                .writer(jsonItemWriter)
+                .writer(controllerEntryItemWriter)
                 .build();
     }
 
@@ -98,6 +102,4 @@ public class BatchConfiguration {
                 .build();
         // @formatter:on
     }
-
-
 }

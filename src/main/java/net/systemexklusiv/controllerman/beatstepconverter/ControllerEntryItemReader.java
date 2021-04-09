@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,8 +43,15 @@ public class ControllerEntryItemReader implements ItemReader<ControllerEntry> {
         public ControllerEntry read() {
             if (!linesList.isEmpty()) {
                 String line =  linesList.remove(0);
-                ControllerEntry controllerEntry = new ControllerEntry("dummy Field", "dummy Value");
-                return controllerEntry;
+                line = line.startsWith(ControllerEntry.PRESET_START) ? linesList.remove(0) : line;
+                line = line.replaceAll("\t", "");
+                String[] partials = line.split(":");
+                if (partials.length > 1) {
+                    Stream<String> stream = Arrays.stream(partials);
+                    partials = stream.map(str -> str.replaceAll("\\s","")).toArray(size -> new String[size]);
+                    ControllerEntry controllerEntry = new ControllerEntry(partials[0],  partials[1]);
+                    return controllerEntry;
+                }
             }
             return null;
         }
