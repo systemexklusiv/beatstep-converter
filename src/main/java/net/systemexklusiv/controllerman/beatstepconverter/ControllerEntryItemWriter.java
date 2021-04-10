@@ -26,8 +26,6 @@ public class ControllerEntryItemWriter implements ItemWriter<ControllerEntry> {
             if (!controllerEntries.isEmpty()) {
 
                 final String NL = System.lineSeparator() ;
-                final String COMMA = "," ;
-                final String QUOT = "\"" ;
                 final String COLON = ":" ;
                 final String WS = " " ;
 
@@ -41,13 +39,11 @@ public class ControllerEntryItemWriter implements ItemWriter<ControllerEntry> {
                 } );
 
                 sb.append(ControllerEntry.PRESET_END);
-
                 try {
                     Files.writeString(path, sb.toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
         }
 }

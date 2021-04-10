@@ -5,6 +5,8 @@ public class ControllerEntry {
     public static final String PRESET_END = "}";
     public static final String DEVICE_NAME_TUPLE = "\"device\": \"BeatStep\"";
 
+    public static final int CONTROL_MODE = 1;
+    public static final int CONTROL_CHANNEL = 2;
 
     String field;
     String value;

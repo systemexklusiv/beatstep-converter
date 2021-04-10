@@ -60,8 +60,9 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public ControllerEntryItemProcessor processor() {
-        return new ControllerEntryItemProcessor();
+    @StepScope
+    public ControllerEntryItemProcessor processor(@Value("#{jobParameters['channel']}") String channel) {
+        return new ControllerEntryItemProcessor(channel);
     }
     @Bean
     @StepScope
@@ -83,11 +84,11 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step step1(ControllerEntryItemReader controllerEntryItemReader,ControllerEntryItemWriter controllerEntryItemWriter) {
+    public Step step1(ControllerEntryItemReader controllerEntryItemReader,ControllerEntryItemProcessor processor, ControllerEntryItemWriter controllerEntryItemWriter) {
         return stepBuilderFactory.get("step1")
                 .<ControllerEntry, ControllerEntry> chunk(300)
                 .reader(controllerEntryItemReader)
-                .processor(processor())
+                .processor(processor)
                 .writer(controllerEntryItemWriter)
                 .build();
     }
