@@ -20,11 +20,11 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 	@Autowired
 	private JobLauncher jobLauncher;
 
-	@Value("${file.input}")
-	private String input;
+	@Value("${source}")
+	private String source;
 
-	@Value("${file.output}")
-	private String output;
+	@Value("${target}")
+	private String target;
 
 	@Autowired
 	@Qualifier("transformBeatstepPreset")
@@ -51,8 +51,8 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 		}
 		logger.info("Your application started with option names : {}", args.getSourceArgs());
 
-		paramsBuilder.addString("file.input", input);
-		paramsBuilder.addString("file.output", output);
+		paramsBuilder.addString("source", source);
+		paramsBuilder.addString("target", target);
 		jobLauncher.run(transformBeatstepPreset, paramsBuilder.toJobParameters());
 	}
 }

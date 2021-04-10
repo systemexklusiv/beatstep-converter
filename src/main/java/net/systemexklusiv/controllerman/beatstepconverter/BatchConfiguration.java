@@ -38,25 +38,14 @@ public class BatchConfiguration {
 
     @Bean
     @StepScope
-    public JsonItemReader<ControllerEntry> jsonItemReader(@Value("#{jobParameters['file.input']}") String input) {
-        final ObjectMapper mapper = new ObjectMapper();
-
-        final JacksonJsonObjectReader<ControllerEntry> jsonObjectReader = new JacksonJsonObjectReader<>(
-                ControllerEntry.class);
-        jsonObjectReader.setMapper(mapper);
-
-        Resource cpr = new ClassPathResource(input);
-        return new JsonItemReaderBuilder<ControllerEntry>()
-                .jsonObjectReader(jsonObjectReader)
-                .resource(cpr)
-                .name("myReader")
-                .build();
+    public HasFileToListOfLinesReader hasFileToListOfLinesReader(@Value("#{jobParameters['source']}") String input) {
+        return new FileToListOfLinesReader(input);
     }
 
     @Bean
     @StepScope
-    public ControllerEntryItemReader controllerEntryItemReader(@Value("#{jobParameters['file.input']}") String input) {
-        return new ControllerEntryItemReader(input);
+    public ControllerEntryItemReader controllerEntryItemReader(HasFileToListOfLinesReader hasFileToListOfLinesReader) {
+        return new ControllerEntryItemReader(hasFileToListOfLinesReader);
     }
 
     @Bean
@@ -66,21 +55,8 @@ public class BatchConfiguration {
     }
     @Bean
     @StepScope
-    public ControllerEntryItemWriter controllerEntryItemWriter (@Value("#{jobParameters['file.output']}") String output) {
+    public ControllerEntryItemWriter controllerEntryItemWriter (@Value("#{jobParameters['target']}") String output) {
         return new ControllerEntryItemWriter(output);
-    }
-
-    @Bean
-    @StepScope
-    public JsonFileItemWriter<ControllerEntry> jsonItemWriter(
-            @Value("#{jobParameters['file.output']}") String output) throws IOException {
-        JsonFileItemWriterBuilder<ControllerEntry> builder = new JsonFileItemWriterBuilder<>();
-        JacksonJsonObjectMarshaller<ControllerEntry> marshaller = new JacksonJsonObjectMarshaller<>();
-        return builder
-                .name("controllerEntryItemWriter")
-                .jsonObjectMarshaller(marshaller)
-                .resource(new FileSystemResource(output))
-                .build();
     }
 
     @Bean

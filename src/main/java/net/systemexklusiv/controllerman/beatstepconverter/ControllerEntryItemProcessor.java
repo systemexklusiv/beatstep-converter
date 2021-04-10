@@ -9,7 +9,7 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
     private static final Logger log = LoggerFactory.getLogger(ControllerEntry.class);
     private final String channel;
     public ControllerEntryItemProcessor(String channel) {
-        this.channel = channel;
+        this.channel =  channel;
     }
 
     @Override
