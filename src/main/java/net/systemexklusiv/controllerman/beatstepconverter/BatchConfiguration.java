@@ -58,12 +58,10 @@ public class BatchConfiguration {
 
     @Bean(name = "transformBeatstepPreset")
     public Job transformBeatstepPreset(Step step1) throws IOException {
-        // @formatter:off
         return jobBuilderFactory
                 .get("transformBeatstepPreset")
                 .flow(step1)
                 .end()
                 .build();
-        // @formatter:on
     }
 }

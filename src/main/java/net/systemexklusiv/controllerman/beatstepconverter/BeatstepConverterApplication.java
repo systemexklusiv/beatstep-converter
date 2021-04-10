@@ -40,6 +40,9 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 	public void run(ApplicationArguments args) throws Exception {
 		JobParametersBuilder paramsBuilder = new JobParametersBuilder();
 
+		paramsBuilder.addString("source", source);
+		paramsBuilder.addString("target", target);
+
 		if (args.containsOption("channel")) {
 			paramsBuilder.addString("channel", args.getOptionValues("channel").get(0));
 		}
@@ -51,8 +54,6 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 		}
 		logger.info("Your application started with option names : {}", args.getSourceArgs());
 
-		paramsBuilder.addString("source", source);
-		paramsBuilder.addString("target", target);
 		jobLauncher.run(transformBeatstepPreset, paramsBuilder.toJobParameters());
 	}
 }
