@@ -34,10 +34,11 @@ public class ControllerEntryItemReader extends AbstractItemStreamItemReader<Cont
                 String line =  linesList.remove(0);
                 line = line.startsWith(ControllerEntry.PRESET_START) ? linesList.remove(0) : line;
                 line = line.replaceAll("\t", "");
+                line = line.replaceAll(" ", "");
+                line = line.replaceAll(",", "");
                 String[] partials = line.split(":");
                 if (partials.length > 1) {
                     Stream<String> stream = Arrays.stream(partials);
-                    partials = stream.map(str -> str.replaceAll("\\s","")).toArray(size -> new String[size]);
                     ControllerEntry controllerEntry = new ControllerEntry(partials[0],  partials[1]);
                     return controllerEntry;
                 }

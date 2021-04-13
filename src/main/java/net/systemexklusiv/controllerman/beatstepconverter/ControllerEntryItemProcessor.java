@@ -26,13 +26,16 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
             String controlIdAsString = fieldPartials[0];
             String controlFeatureAsString = fieldPartials[1];
 
+            controlIdAsString.replaceAll("\"","");
+            controlIdAsString.replaceAll(" ","");
+
            int controlAddress = Integer.valueOf(controlIdAsString.replaceAll("\"",""));
            int featureNum = Integer.valueOf(controlFeatureAsString.replaceAll("\"",""));
 
            final String newChannel = channel != null ? channel : value;
 
            if (featureNum == ControllerEntry.CONTROL_CHANNEL) {
-               value = newChannel + COMMA;
+               value = newChannel;
            }
         }
 

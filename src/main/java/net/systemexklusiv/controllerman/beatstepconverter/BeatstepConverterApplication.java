@@ -44,13 +44,13 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 		paramsBuilder.addString("target", target);
 
 		if (args.containsOption("channel")) {
-			paramsBuilder.addString("channel", args.getOptionValues("channel").get(0));
+			paramsBuilder.addString("channel", args.getOptionValues("channel").get(1));
 		}
 		if (args.containsOption("source")) {
-			paramsBuilder.addString("source", args.getOptionValues("source").get(0));
+			paramsBuilder.addString("source", args.getOptionValues("source").get(1));
 		}
 		if (args.containsOption("target")) {
-			paramsBuilder.addString("target", args.getOptionValues("target").get(0));
+			paramsBuilder.addString("target", args.getOptionValues("target").get(1));
 		}
 		logger.info("Your application started with option names : {}", args.getSourceArgs());
 

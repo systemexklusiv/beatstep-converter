@@ -28,6 +28,7 @@ public class ControllerEntryItemWriter implements ItemWriter<ControllerEntry> {
                 final String NL = System.lineSeparator() ;
                 final String COLON = ":" ;
                 final String WS = " " ;
+                final String COMMA = "," ;
 
                 StringBuilder sb = new StringBuilder(controllerEntries.size() + 3);
 
@@ -35,7 +36,7 @@ public class ControllerEntryItemWriter implements ItemWriter<ControllerEntry> {
                 sb.append(NL);
 
                 controllerEntries.forEach( entry -> {
-                    sb.append(entry.getField() + COLON + entry.getValue() + NL);
+                    sb.append(entry.getField() + COLON + entry.getValue() + COMMA + NL );
                 } );
 
                 sb.append(ControllerEntry.PRESET_END);

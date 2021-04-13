@@ -32,7 +32,6 @@ public class FileToListOfLinesReader implements HasFileToListOfLinesReader {
             e.printStackTrace();
             return Collections.EMPTY_LIST;
         } finally {
-            lineStream.close();
         }
     }
 }
