@@ -26,10 +26,6 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
             String controlIdAsString = fieldPartials[0];
             String controlFeatureAsString = fieldPartials[1];
 
-            controlIdAsString.replaceAll("\"","");
-            controlIdAsString.replaceAll(" ","");
-
-           int controlAddress = Integer.valueOf(controlIdAsString.replaceAll("\"",""));
            int featureNum = Integer.valueOf(controlFeatureAsString.replaceAll("\"",""));
 
            final String newChannel = channel != null ? channel : value;
@@ -39,7 +35,7 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
            }
         }
 
-        final ControllerEntry transformedEntry = new ControllerEntry(field, value);
+        final ControllerEntry transformedEntry = new ControllerEntry(field, value, controllerEntry.controllerType);
 
         log.info("Converting (" + controllerEntry + ") into (" + transformedEntry + ")");
 

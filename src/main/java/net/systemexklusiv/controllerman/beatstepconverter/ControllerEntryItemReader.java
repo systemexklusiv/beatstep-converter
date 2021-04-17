@@ -33,13 +33,37 @@ public class ControllerEntryItemReader extends AbstractItemStreamItemReader<Cont
             if (!linesList.isEmpty()) {
                 String line =  linesList.remove(0);
                 line = line.startsWith(ControllerEntry.PRESET_START) ? linesList.remove(0) : line;
-                line = line.replaceAll("\t", "");
-                line = line.replaceAll(" ", "");
+                line = line.replaceAll("(\\s)", "");
                 line = line.replaceAll(",", "");
+
                 String[] partials = line.split(":");
                 if (partials.length > 1) {
-                    Stream<String> stream = Arrays.stream(partials);
-                    ControllerEntry controllerEntry = new ControllerEntry(partials[0],  partials[1]);
+                    ControllerEntry.ControllerType controllerType = ControllerEntry.ControllerType.NOT_SET;
+                    String[] fieldPartials = partials[0].split("_");
+                    if (fieldPartials.length > 1) {
+
+                        int controllId = Integer.parseInt(fieldPartials[0].replaceAll("\"*",""));
+                        String controlFeatureAsString = fieldPartials[1];
+                        if (controllId >= 32 && controllId <= 47 ) {
+                            controllerType = ControllerEntry.ControllerType.KNOB;
+                        }
+                        else if (controllId == 48) {
+                            controllerType = ControllerEntry.ControllerType.BIG_KNOB;
+                        }
+                        else if (controllId >= 112 && controllId <= 127) {
+                            controllerType = ControllerEntry.ControllerType.PAD;
+                        }
+                        else if (controllId == 88) {
+                            controllerType = ControllerEntry.ControllerType.PLAY;
+                        }
+                        else if (controllId == 89) {
+                            controllerType = ControllerEntry.ControllerType.STOP;
+                        }
+                        else {
+                            controllerType = ControllerEntry.ControllerType.WEIRD;
+                        }
+                    }
+                    ControllerEntry controllerEntry = new ControllerEntry(partials[0],  partials[1], controllerType);
                     return controllerEntry;
                 }
             }
