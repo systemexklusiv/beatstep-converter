@@ -1,25 +1,15 @@
 package net.systemexklusiv.controllerman.beatstepconverter;
 
-import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.NonTransientResourceException;
-import org.springframework.batch.item.ParseException;
-import org.springframework.batch.item.UnexpectedInputException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.support.AbstractItemStreamItemReader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ControllerEntryItemReader extends AbstractItemStreamItemReader<ControllerEntry> {
+
+    Logger logger = LoggerFactory.getLogger(ControllerEntryItemReader.class);
 
     private List<String> linesList;
 
@@ -60,7 +50,8 @@ public class ControllerEntryItemReader extends AbstractItemStreamItemReader<Cont
                             controllerType = ControllerEntry.ControllerType.STOP;
                         }
                         else {
-                            controllerType = ControllerEntry.ControllerType.WEIRD;
+                            controllerType = ControllerEntry.ControllerType.NOT_PROCESSED_BY_THIS_TOOL;
+
                         }
                     }
                     ControllerEntry controllerEntry = new ControllerEntry(partials[0],  partials[1], controllerType);

@@ -60,7 +60,6 @@ class BeatstepConverterApplicationTests {
 
 	@Test
 	void Test_Itemreader_Knob() {
-
 		TestLinesReader linesReader = new TestLinesReader(" \"33_6\":1,, ");
 
 		ControllerEntryItemReader controllerEntryItemReader = new ControllerEntryItemReader(linesReader);
@@ -69,7 +68,18 @@ class BeatstepConverterApplicationTests {
 		Assert.assertEquals("\"127_6\"", ce.field);
 		Assert.assertEquals("1", ce.value);
 		Assert.assertEquals(ControllerEntry.ControllerType.KNOB, ce.controllerType);
+	}
 
+	@Test
+	void Test_Itemreader_BigKnob() {
+		TestLinesReader linesReader = new TestLinesReader(" \"48_6\":1,, ");
+
+		ControllerEntryItemReader controllerEntryItemReader = new ControllerEntryItemReader(linesReader);
+		ControllerEntry ce = controllerEntryItemReader.read();
+
+		Assert.assertEquals("\"127_6\"", ce.field);
+		Assert.assertEquals("1", ce.value);
+		Assert.assertEquals(ControllerEntry.ControllerType.KNOB, ce.controllerType);
 	}
 
 	class TestLinesReader implements HasFileToListOfLinesReader {
