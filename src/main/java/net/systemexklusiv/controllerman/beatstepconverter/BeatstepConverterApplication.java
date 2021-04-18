@@ -50,6 +50,19 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 			checkChannel(channel);
 			paramsBuilder.addString(Options.ALL_CHANNEL, args.getOptionValues(Options.ALL_CHANNEL).get(0));
 		}
+
+		if (args.containsOption(Options.ALL_KNOB_CHANNEL)) {
+			int channel = Integer.valueOf(args.getOptionValues(Options.ALL_KNOB_CHANNEL).get(0));
+			checkCcAndNoteRange(channel);
+			paramsBuilder.addString(Options.ALL_KNOB_CHANNEL, args.getOptionValues(Options.ALL_KNOB_CHANNEL).get(0));
+		}
+
+		if (args.containsOption(Options.ALL_PAD_CHANNEL)) {
+			int channel = Integer.valueOf(args.getOptionValues(Options.ALL_PAD_CHANNEL).get(0));
+			checkCcAndNoteRange(channel);
+			paramsBuilder.addString(Options.ALL_PAD_CHANNEL, args.getOptionValues(Options.ALL_PAD_CHANNEL).get(0));
+		}
+
 		if (args.containsOption(Options.PAD_NOTE_STARTING_AT)) {
 			int channel = Integer.valueOf(args.getOptionValues(Options.PAD_NOTE_STARTING_AT).get(0));
 			checkCcAndNoteRange(channel);

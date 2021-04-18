@@ -28,7 +28,7 @@ public class ControllerEntryItemReader extends AbstractItemStreamItemReader<Cont
 
                 String[] partials = line.split(":");
                 if (partials.length > 1) {
-                    ControllerEntry.ControllerType controllerType = ControllerEntry.ControllerType.NOT_SET;
+                    ControllerEntry.ControllerType controllerType = ControllerEntry.ControllerType.NOT_PROCESSED_BY_THIS_TOOL;
                     String[] fieldPartials = partials[0].split("_");
                     if (fieldPartials.length > 1) {
 

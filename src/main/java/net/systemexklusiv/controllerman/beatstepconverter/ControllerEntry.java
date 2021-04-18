@@ -6,7 +6,7 @@ import java.time.temporal.ValueRange;
 
 public class ControllerEntry {
 
-    public enum ControllerType {KNOB, BIG_KNOB, PAD, STOP, PLAY, NOT_SET, NOT_PROCESSED_BY_THIS_TOOL};
+    public enum ControllerType {KNOB, BIG_KNOB, PAD, STOP, PLAY, ALL, NOT_PROCESSED_BY_THIS_TOOL};
     public static final String PRESET_START = "{";
     public static final String PRESET_END = "}";
     public static final String DEVICE_NAME_TUPLE = "\"device\": \"BeatStep\"";

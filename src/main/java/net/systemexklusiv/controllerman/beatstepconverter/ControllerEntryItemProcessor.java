@@ -1,5 +1,8 @@
 package net.systemexklusiv.controllerman.beatstepconverter;
 
+import net.systemexklusiv.controllerman.beatstepconverter.converters.ChannelConverter;
+import net.systemexklusiv.controllerman.beatstepconverter.converters.HasConverter;
+import net.systemexklusiv.controllerman.beatstepconverter.converters.StartAtConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -8,31 +11,26 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
 
     private static final Logger log = LoggerFactory.getLogger(ControllerEntry.class);
     private final String allChannel;
-    private final String allKnobChannel;
-    private final String allPadChannel;
-    private final String padNoteStartingAt;
 //    private final String knobChannelStartingAt;
 //    private final String padChannelStartingAt;
-
 //    private final String allKnobsCc;
 //    private final String allPadsCc;
 //    private final String knobCCStartingAt;
 //    private final String padCcStartingAt;
-
-    private int lastNoteNumber = -1;
+    HasConverter padNoteStartAtConverter;
+    HasConverter padChannelConverter;
+    HasConverter knobChannelConverter;
 
     public ControllerEntryItemProcessor(String allChannel, String allKnobChannel, String allPadChannel, String padNoteStartingAt) {
         this.allChannel = allChannel;
-        this.allKnobChannel = allKnobChannel;
-        this.allPadChannel = allPadChannel;
-        this.padNoteStartingAt = padNoteStartingAt;
-        lastNoteNumber = Integer.valueOf(padNoteStartingAt);
+        if (padNoteStartingAt != null) padNoteStartAtConverter = new StartAtConverter(Integer.valueOf(padNoteStartingAt), ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_MODE_NOTE);
+        if (allPadChannel != null) padChannelConverter = new ChannelConverter(ControllerEntry.ControllerType.PAD, Integer.valueOf(allPadChannel));
+        if (allKnobChannel != null) knobChannelConverter = new ChannelConverter(ControllerEntry.ControllerType.KNOB, Integer.valueOf(allKnobChannel));
+        //        switchedCcStartAtConverter = new StartAtConverter(Integer.valueOf(padNoteStartingAt), ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_MODE_NOTE);
     }
 
     @Override
     public ControllerEntry process(final ControllerEntry controllerEntry) throws Exception {
-        final String COMMA = "," ;
-        final String QUOT = "\"" ;
 
          String field = controllerEntry.getField();
          String value = controllerEntry.getValue();
@@ -49,19 +47,17 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
                     value = allChannel;
                 }
             }
+            if (this.padNoteStartAtConverter != null) {
+                value = padNoteStartAtConverter.convert(controllerEntry.controllerType, featureNum, value);
+            }
 
-            if (this.padNoteStartingAt != null) {
-                if (featureNum == ControllerEntry.CONTROL_MODE) {
-                        // Set the pad to be midi note
-                        if (controllerEntry.controllerType.equals(ControllerEntry.ControllerType.PAD)) {
-                            value = ControllerEntry.CONTROL_MODE_NOTE;
-                        }
-                    } else
-                if (featureNum == ControllerEntry.CC_NUM) {
-                    value = String.valueOf(getNoteNumberRoundRobin());
-                    incrementNoteNumRoundRobin();
-                }
-           }
+            if (this.padChannelConverter != null) {
+                value = padChannelConverter.convert(controllerEntry.controllerType, featureNum, value);
+            }
+            if (this.knobChannelConverter != null) {
+                value = knobChannelConverter.convert(controllerEntry.controllerType, featureNum, value);
+            }
+
 
         }
 
@@ -72,11 +68,4 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
         return transformedEntry;
     }
 
-    private int getNoteNumberRoundRobin() {
-        return lastNoteNumber;
-    }
-
-    private void incrementNoteNumRoundRobin() {
-        this.lastNoteNumber = (lastNoteNumber + 1) % 127;
-    }
 }
