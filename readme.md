@@ -9,12 +9,15 @@
 <p>Where one option is followed by one number or one text for input and output directory or nothing (than the equals is omitted) as explained in the list of arguments below
 <p>Note that each option starts with a double minus followed by the name (better copy paste it!) and an equals symbol and a digit or a word or nothing
 
-<p>example: $ beatstep-converter-1.0.0 --allChannel=0 --allPadToOptionSwitchedControl --source=source-source-preset.beatstep --target=target-source-preset.beatstep
-
+I wrote this app because the UI editor of the beatstep is anoying me with too many repeating tasks.. so I descied instead of spending hours of clicking and scrolling in writing this tool :-D
+Application arguments must be supplied like: --OPTION=VALUE
+Where one option is followed by one number or one text for input and output directory or nothing (than the equals is omitted) as explained in the list of arguments below
+Note that each option starts with a double minus followed by the name (better copy paste it!) and an equals symbol and ohne digit or text or nothing
+example: $ beatstep-converter --allChannel=0 --allPadToOptionSwitchedControl --source=source-source-preset.beatstep --target=target-source-preset.beatstep
 This will take the original file called source-source-preset.beatstep set all knobs and pads to channel 1, sets all pads to option switchedCC (instead of the default midi note)
 and create a new file named target-source-preset.beatstep. the resulting file will be created
 
-You can use the beatstep-converter multiple time so you don't have to make all adjustments in one call, because the rest of assingments got unaltered piped through.
+You can use the beatstep-converter miltiple time so you don't have to make all adjustments in one call, because the rest of assingments got unaltered piped through.
 F.i. in one call you can just change the channel, in another call the midi notes of the pads in another call somthing else. You can always load in the results in between and check if its to your satisfactory :-)
 
 ALWAYS BACKUP YOU WORK - ALWAYS MAKE A COPY SOMEWHERE - I TAKE NO RISK OF DATA LOSS AND OTHER PROBLEMS WHICH MAY ARISE
@@ -36,4 +39,12 @@ Chain the following Options one after the other:
 <p>--allKnobMax=0 to 127 -> sets the max for all knobs together
 <p>--allPadMin=0 to 127 -> sets the min for all pads together
 <p>--allPadMax=0 to 127 -> sets the max for all pads together
-<p><p>Have Fun and share your results :-)
+
+
+<p> Ex: Octatrack Track Sample Pitch from +0 semi to 12
+--allChannel=10
+--source=presets/export.beatstep
+--target=OT_0to12Pitch_startAt84.beatstep
+--padNoteStartingAt=84
+
+<p><p>Have Fun and share your results :-
