@@ -73,13 +73,13 @@ public class BatchConfiguration {
     @Bean
     @StepScope
     public ControllerEntryItemWriter controllerEntryItemWriter (@Value("#{jobParameters['target']}") String output) {
-        output = output != null ? output : new Date() + Constants.Options.DEFAULT_TARGET_FILENAME;
+        output = output != null ? output : new Date().getTime() + "_" + Constants.Options.DEFAULT_TARGET_FILENAME;
         return new ControllerEntryItemWriter(output);
     }
 
     @Bean
     public Step step1(ControllerEntryItemReader controllerEntryItemReader,ControllerEntryItemProcessor processor, ControllerEntryItemWriter controllerEntryItemWriter) {
-        return stepBuilderFactory.get("step1")
+        return stepBuilderFactory.get("transformBeatstepPreset")
                 .<ControllerEntry, ControllerEntry> chunk(300)
                 .reader(controllerEntryItemReader)
                 .processor(processor)
