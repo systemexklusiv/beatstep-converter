@@ -43,11 +43,11 @@ public class WIPBatchConfigurationTasklet {
         return new ControllerEntryItemReader(hasFileToListOfLinesReader);
     }
 
-    @Bean
-    @StepScope
-    public ControllerEntryItemProcessor processor(@Value("#{jobParameters['allChannel']}") String allChannel) {
-        return new ControllerEntryItemProcessor(allChannel, "dummy", "dummy", "dummy", "dummy");
-    }
+//    @Bean
+//    @StepScope
+//    public ControllerEntryItemProcessor processor(@Value("#{jobParameters['allChannel']}") String allChannel) {
+//        return new ControllerEntryItemProcessor(allChannel, "dummy", "dummy", "dummy", "dummy");
+//    }
     @Bean
     @StepScope
     public ControllerEntryItemWriter controllerEntryItemWriter (@Value("#{jobParameters['target']}") String output) {

@@ -1,5 +1,7 @@
 package net.systemexklusiv.controllerman.beatstepconverter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 
 import java.io.IOException;
@@ -13,6 +15,7 @@ import java.util.stream.Stream;
 public class FileToListOfLinesReader implements HasFileToListOfLinesReader {
 
     private final String filePath;
+    private static final Logger logger = LoggerFactory.getLogger(FileToListOfLinesReader.class);
 
     public FileToListOfLinesReader(String filePath) {
         this.filePath = filePath;
@@ -29,7 +32,11 @@ public class FileToListOfLinesReader implements HasFileToListOfLinesReader {
             return lineStream.collect(Collectors.toList());
 
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+
+            logger.error("Can not find File: " + filePath);
+            logger.error(e.getMessage());
+
             return Collections.EMPTY_LIST;
         } finally {
         }

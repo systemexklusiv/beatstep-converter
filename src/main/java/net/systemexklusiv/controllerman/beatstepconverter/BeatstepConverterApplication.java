@@ -45,6 +45,12 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 //		paramsBuilder.addString("source", source);
 //		paramsBuilder.addString("target", target);
 
+		if (args.getSourceArgs().length == 0) {
+				printInstructions();
+				System.exit(0);
+
+			}
+
 		if (args.containsOption(Options.ALL_CHANNEL)) {
 			int channel = Integer.valueOf(args.getOptionValues(Options.ALL_CHANNEL).get(0));
 			checkChannel(channel);
@@ -59,6 +65,18 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 			int channel = Integer.valueOf(args.getOptionValues(Options.ALL_KNOB_CHANNEL).get(0));
 			checkCcAndNoteRange(channel);
 			paramsBuilder.addString(Options.ALL_KNOB_CHANNEL, args.getOptionValues(Options.ALL_KNOB_CHANNEL).get(0));
+		}
+
+		if (args.containsOption(Options.KNOB_CC_STARTING_AT)) {
+			int num = Integer.valueOf(args.getOptionValues(Options.KNOB_CC_STARTING_AT).get(0));
+			checkCcAndNoteRange(num);
+			paramsBuilder.addString(Options.KNOB_CC_STARTING_AT, args.getOptionValues(Options.KNOB_CC_STARTING_AT).get(0));
+		}
+
+		if (args.containsOption(Options.KNOB_CC_STARTING_FROM)) {
+			int num = Integer.valueOf(args.getOptionValues(Options.KNOB_CC_STARTING_FROM).get(0));
+			checkCcAndNoteRange(num);
+			paramsBuilder.addString(Options.KNOB_CC_STARTING_FROM, args.getOptionValues(Options.KNOB_CC_STARTING_FROM).get(0));
 		}
 
 		if (args.containsOption(Options.ALL_KNOB_MIN)) {
@@ -97,11 +115,11 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 
 		if (args.containsOption(Options.ALL_PAD_TO_OPTION_MIDI_NOTE)) {
 			paramsBuilder.addString(Options.ALL_PAD_TO_OPTION_MIDI_NOTE, "true");
-		} else paramsBuilder.addString(Options.ALL_PAD_TO_OPTION_MIDI_NOTE, "false");
+		}
 
 		if (args.containsOption(Options.ALL_PAD_TO_OPTION_SWITCHED_CONTROL)) {
 			paramsBuilder.addString(Options.ALL_PAD_TO_OPTION_SWITCHED_CONTROL, "true");
-		} else paramsBuilder.addString(Options.ALL_PAD_TO_OPTION_SWITCHED_CONTROL, "false");
+		}
 
 		if (args.containsOption(Options.ALL_PAD_MIN)) {
 			int num = Integer.valueOf(args.getOptionValues(Options.ALL_PAD_MIN).get(0));

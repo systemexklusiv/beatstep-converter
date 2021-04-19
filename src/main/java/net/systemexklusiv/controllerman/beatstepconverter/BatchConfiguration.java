@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
+import java.util.Date;
 
 @Configuration
 @EnableBatchProcessing
@@ -42,25 +43,43 @@ public class BatchConfiguration {
             @Value("#{jobParameters['allKnobChannel']}") String allKnobChannel,
             @Value("#{jobParameters['allPadChannel']}") String allPadChannel,
             @Value("#{jobParameters['padNoteStartingAt']}") String padNoteStartingAt,
-            @Value("#{jobParameters['padNoteStartingFrom']}") String padNoteStartingFrom
+            @Value("#{jobParameters['padNoteStartingFrom']}") String padNoteStartingFrom,
+            @Value("#{jobParameters['allPadToOptionMidiNote']}") String allPadToOptionMidiNote,
+            @Value("#{jobParameters['allPadToOptionMidiNote']}") String allPadToOptionSwitchedControl,
+            @Value("#{jobParameters['allPadMin']}") String allPadMin,
+            @Value("#{jobParameters['allPadMax']}") String allPadMax,
+            @Value("#{jobParameters['allKnobMin']}") String allKnobMin,
+            @Value("#{jobParameters['allKnobMax']}") String allKnobMax,
+            @Value("#{jobParameters['knobCcStartingAt']}") String knobCcStartingAt,
+            @Value("#{jobParameters['knobCcStartingFrom']}") String knobCcStartingFrom
+
                                                   ) {
         return new ControllerEntryItemProcessor(
                 allChannel,
                 allKnobChannel,
                 allPadChannel,
                 padNoteStartingAt,
-                padNoteStartingFrom
+                padNoteStartingFrom,
+                allPadToOptionMidiNote,
+                allPadToOptionSwitchedControl,
+                allPadMin,
+                allPadMax,
+                allKnobMin,
+                allKnobMax,
+                knobCcStartingAt,
+                knobCcStartingFrom
                 );
     }
     @Bean
     @StepScope
     public ControllerEntryItemWriter controllerEntryItemWriter (@Value("#{jobParameters['target']}") String output) {
+        output = output != null ? output : new Date() + Constants.Options.DEFAULT_TARGET_FILENAME;
         return new ControllerEntryItemWriter(output);
     }
 
     @Bean
     public Step step1(ControllerEntryItemReader controllerEntryItemReader,ControllerEntryItemProcessor processor, ControllerEntryItemWriter controllerEntryItemWriter) {
-        return stepBuilderFactory.get("step1")
+        return stepBuilderFactory.get("Transform Beatstep preset")
                 .<ControllerEntry, ControllerEntry> chunk(300)
                 .reader(controllerEntryItemReader)
                 .processor(processor)
