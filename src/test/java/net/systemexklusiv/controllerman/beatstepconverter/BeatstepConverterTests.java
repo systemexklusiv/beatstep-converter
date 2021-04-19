@@ -16,7 +16,8 @@ class BeatstepConverterTests {
 	void Test_PadNoteStatAtConverter() {
 		int startAt = 16;
 		String dummyValue = "42";
-		HasConverter startAtConverter = new StartAtConverter(startAt, ControllerType.PAD, ControllerEntry.CONTROL_MODE_NOTE);
+		boolean isInverted = false; // counting upwards
+		HasConverter startAtConverter = new StartAtConverter(startAt, ControllerType.PAD, ControllerEntry.CONTROL_MODE_NOTE, isInverted);
 		// When an entry for definition of some control mode (-1) below comes in..
 		String value = startAtConverter.convert(ControllerType.PAD, ControllerEntry.CONTROL_MODE, dummyValue);
 		// It'll be converted to be a Midi note
@@ -32,6 +33,21 @@ class BeatstepConverterTests {
 			value = startAtConverter.convert(ControllerType.PAD, ControllerEntry.CC_NUM, dummyValue);
 			// It'll be converted to be a Midi note + 1 of the starting value;
 			Assert.assertEquals( (startAt + 1 + i ) % 127, Integer.parseInt(value));
+		}
+	}
+
+	@Test
+	void Test_PadNoteStatAtConverterInverted() {
+		int startAt = 16;
+		String dummyValue = "42";
+		boolean isInverted = true; // counting downwards
+		HasConverter startAtConverter = new StartAtConverter(startAt, ControllerType.PAD, ControllerEntry.CONTROL_MODE_NOTE, isInverted);
+
+		for (int i = 0; i < 128; i++) {
+			// When an entry for definition of some CC/Note num comes in it'll set 1st to the starting value of the app parameter..
+			String value = startAtConverter.convert(ControllerType.PAD, ControllerEntry.CC_NUM, dummyValue);
+			// It'll be converted to be a Midi note + 1 of the starting value;
+			Assert.assertEquals( (startAt - i ) % 127, Integer.parseInt(value));
 		}
 	}
 

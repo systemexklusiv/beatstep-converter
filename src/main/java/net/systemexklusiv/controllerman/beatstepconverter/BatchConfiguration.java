@@ -41,13 +41,15 @@ public class BatchConfiguration {
             @Value("#{jobParameters['allChannel']}") String allChannel,
             @Value("#{jobParameters['allKnobChannel']}") String allKnobChannel,
             @Value("#{jobParameters['allPadChannel']}") String allPadChannel,
-            @Value("#{jobParameters['padNoteStartingAt']}") String padNoteStartingAt
+            @Value("#{jobParameters['padNoteStartingAt']}") String padNoteStartingAt,
+            @Value("#{jobParameters['padNoteStartingFrom']}") String padNoteStartingFrom
                                                   ) {
         return new ControllerEntryItemProcessor(
                 allChannel,
                 allKnobChannel,
                 allPadChannel,
-                padNoteStartingAt
+                padNoteStartingAt,
+                padNoteStartingFrom
                 );
     }
     @Bean

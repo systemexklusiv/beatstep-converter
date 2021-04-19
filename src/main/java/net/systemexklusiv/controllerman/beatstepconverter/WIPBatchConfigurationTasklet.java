@@ -46,7 +46,7 @@ public class WIPBatchConfigurationTasklet {
     @Bean
     @StepScope
     public ControllerEntryItemProcessor processor(@Value("#{jobParameters['allChannel']}") String allChannel) {
-        return new ControllerEntryItemProcessor(allChannel, "dummy", "dummy", "dummy");
+        return new ControllerEntryItemProcessor(allChannel, "dummy", "dummy", "dummy", "dummy");
     }
     @Bean
     @StepScope

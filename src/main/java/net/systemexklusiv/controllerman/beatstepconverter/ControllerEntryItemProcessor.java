@@ -21,9 +21,12 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
     HasConverter padChannelConverter;
     HasConverter knobChannelConverter;
 
-    public ControllerEntryItemProcessor(String allChannel, String allKnobChannel, String allPadChannel, String padNoteStartingAt) {
+    public ControllerEntryItemProcessor(String allChannel, String allKnobChannel, String allPadChannel, String padNoteStartingAt, String padNoteStartingFrom) {
         this.allChannel = allChannel;
-        if (padNoteStartingAt != null) padNoteStartAtConverter = new StartAtConverter(Integer.valueOf(padNoteStartingAt), ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_MODE_NOTE);
+
+        if (padNoteStartingAt != null) padNoteStartAtConverter = new StartAtConverter(Integer.valueOf(padNoteStartingAt), ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_MODE_NOTE, false);
+        if (padNoteStartingFrom != null) padNoteStartAtConverter = new StartAtConverter(Integer.valueOf(padNoteStartingFrom), ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_MODE_NOTE, true);
+
         if (allPadChannel != null) padChannelConverter = new ChannelConverter(ControllerEntry.ControllerType.PAD, Integer.valueOf(allPadChannel));
         if (allKnobChannel != null) knobChannelConverter = new ChannelConverter(ControllerEntry.ControllerType.KNOB, Integer.valueOf(allKnobChannel));
         //        switchedCcStartAtConverter = new StartAtConverter(Integer.valueOf(padNoteStartingAt), ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_MODE_NOTE);

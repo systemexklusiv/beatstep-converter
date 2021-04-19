@@ -16,9 +16,17 @@ public class Constants {
         public final static String KNOB_CC_STARTING_AT = "knobCcStartingAt";
         public final static String PAD_CC_STARTING_AT = "padCcStartingAt";
         public final static String PAD_NOTE_STARTING_AT = "padNoteStartingAt";
+        public final static String PAD_NOTE_STARTING_FROM = "padNoteStartingFrom";
+
 
         public final static String SOURCE = "source";
         public final static String TARGET = "target";
+        public static final String ALL_KNOB_MIN = "allKnobMin";
+        public static final String ALL_KNOB_MAX = "allKnobMax";
+        public static final String ALL_PAD_TO_OPTION_MIDI_NOTE = "";
+        public static final String ALL_PAD_TO_OPTION_SWITCHED_CONTROL = "allPadToOptionSwitchedControl";
+        public static final String ALL_PAD_MIN = "allPadMin";
+        public static final String ALL_PAD_MAX = "allPadMax";
 
         public static String manual() {
             return  "------------ INSTRUCTIONS ------------" + System.lineSeparator()

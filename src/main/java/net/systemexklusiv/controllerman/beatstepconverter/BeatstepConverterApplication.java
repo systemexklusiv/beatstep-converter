@@ -51,11 +51,31 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 			paramsBuilder.addString(Options.ALL_CHANNEL, args.getOptionValues(Options.ALL_CHANNEL).get(0));
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// KNOBS
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		if (args.containsOption(Options.ALL_KNOB_CHANNEL)) {
 			int channel = Integer.valueOf(args.getOptionValues(Options.ALL_KNOB_CHANNEL).get(0));
 			checkCcAndNoteRange(channel);
 			paramsBuilder.addString(Options.ALL_KNOB_CHANNEL, args.getOptionValues(Options.ALL_KNOB_CHANNEL).get(0));
 		}
+
+		if (args.containsOption(Options.ALL_KNOB_MIN)) {
+			int num = Integer.valueOf(args.getOptionValues(Options.ALL_KNOB_MIN).get(0));
+			checkCcAndNoteRange(num);
+			paramsBuilder.addString(Options.ALL_KNOB_MIN, args.getOptionValues(Options.ALL_KNOB_MIN).get(0));
+		}
+
+		if (args.containsOption(Options.ALL_KNOB_MAX)) {
+			int num = Integer.valueOf(args.getOptionValues(Options.ALL_KNOB_MAX).get(0));
+			checkCcAndNoteRange(num);
+			paramsBuilder.addString(Options.ALL_KNOB_MAX, args.getOptionValues(Options.ALL_KNOB_MAX).get(0));
+		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// PADS
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		if (args.containsOption(Options.ALL_PAD_CHANNEL)) {
 			int channel = Integer.valueOf(args.getOptionValues(Options.ALL_PAD_CHANNEL).get(0));
@@ -64,10 +84,37 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 		}
 
 		if (args.containsOption(Options.PAD_NOTE_STARTING_AT)) {
-			int channel = Integer.valueOf(args.getOptionValues(Options.PAD_NOTE_STARTING_AT).get(0));
-			checkCcAndNoteRange(channel);
+			int num = Integer.valueOf(args.getOptionValues(Options.PAD_NOTE_STARTING_AT).get(0));
+			checkCcAndNoteRange(num);
 			paramsBuilder.addString(Options.PAD_NOTE_STARTING_AT, args.getOptionValues(Options.PAD_NOTE_STARTING_AT).get(0));
 		}
+
+		if (args.containsOption(Options.PAD_NOTE_STARTING_FROM)) {
+			int num = Integer.valueOf(args.getOptionValues(Options.PAD_NOTE_STARTING_FROM).get(0));
+			checkCcAndNoteRange(num);
+			paramsBuilder.addString(Options.PAD_NOTE_STARTING_FROM, args.getOptionValues(Options.PAD_NOTE_STARTING_FROM).get(0));
+		}
+
+		if (args.containsOption(Options.ALL_PAD_TO_OPTION_MIDI_NOTE)) {
+			paramsBuilder.addString(Options.ALL_PAD_TO_OPTION_MIDI_NOTE, "true");
+		} else paramsBuilder.addString(Options.ALL_PAD_TO_OPTION_MIDI_NOTE, "false");
+
+		if (args.containsOption(Options.ALL_PAD_TO_OPTION_SWITCHED_CONTROL)) {
+			paramsBuilder.addString(Options.ALL_PAD_TO_OPTION_SWITCHED_CONTROL, "true");
+		} else paramsBuilder.addString(Options.ALL_PAD_TO_OPTION_SWITCHED_CONTROL, "false");
+
+		if (args.containsOption(Options.ALL_PAD_MIN)) {
+			int num = Integer.valueOf(args.getOptionValues(Options.ALL_PAD_MIN).get(0));
+			checkCcAndNoteRange(num);
+			paramsBuilder.addString(Options.ALL_PAD_MIN, args.getOptionValues(Options.ALL_PAD_MIN).get(0));
+		}
+
+		if (args.containsOption(Options.ALL_PAD_MAX)) {
+			int num = Integer.valueOf(args.getOptionValues(Options.ALL_PAD_MAX).get(0));
+			checkCcAndNoteRange(num);
+			paramsBuilder.addString(Options.ALL_PAD_MAX, args.getOptionValues(Options.ALL_PAD_MAX).get(0));
+		}
+
 		if (args.containsOption(Options.SOURCE)) {
 			paramsBuilder.addString(Options.SOURCE, args.getOptionValues(Options.SOURCE).get(0));
 		}
