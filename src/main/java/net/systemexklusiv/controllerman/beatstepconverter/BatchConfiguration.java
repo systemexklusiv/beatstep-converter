@@ -79,7 +79,7 @@ public class BatchConfiguration {
 
     @Bean
     public Step step1(ControllerEntryItemReader controllerEntryItemReader,ControllerEntryItemProcessor processor, ControllerEntryItemWriter controllerEntryItemWriter) {
-        return stepBuilderFactory.get("Transform Beatstep preset")
+        return stepBuilderFactory.get("step1")
                 .<ControllerEntry, ControllerEntry> chunk(300)
                 .reader(controllerEntryItemReader)
                 .processor(processor)

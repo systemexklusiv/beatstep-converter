@@ -1,5 +1,7 @@
 package net.systemexklusiv.controllerman.beatstepconverter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.lang.Nullable;
 
@@ -15,6 +17,8 @@ import java.util.stream.Stream;
 public class ControllerEntryItemWriter implements ItemWriter<ControllerEntry> {
 
     private Path path;
+
+    private static final Logger logger = LoggerFactory.getLogger(ControllerEntryItemWriter.class);
 
     public ControllerEntryItemWriter(String filePath) {
         path = Path.of(filePath);
@@ -42,9 +46,15 @@ public class ControllerEntryItemWriter implements ItemWriter<ControllerEntry> {
                 sb.append(ControllerEntry.PRESET_END);
                 try {
                     Files.writeString(path, sb.toString());
+
+                    logger.error("Success :-) - New File has been written to: " + path);
+
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error("Can not write to file: " + path);
+                    logger.error(e.getMessage());
                 }
+            } else {
+                logger.info("No file has benn written, no controls have been affacted");
             }
         }
 }
