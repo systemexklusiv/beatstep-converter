@@ -47,7 +47,7 @@ public class ControllerEntryItemWriter implements ItemWriter<ControllerEntry> {
                 try {
                     Files.writeString(path, sb.toString());
 
-                    logger.error("Success :-) - New File has been written to: " + path);
+                    logger.info("Success :-) - New File has been written to: " + path);
 
                 } catch (IOException e) {
                     logger.error("Can not write to file: " + path);

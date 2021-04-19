@@ -42,6 +42,10 @@ public class StartAtConverter implements HasConverter {
     }
 
     private void incrementNoteNumRoundRobin() {
-        this.startingHere = isInverted ? (startingHere - 1) % 127 : (startingHere + 1) % 127;
+        if (isInverted) {
+            startingHere = (startingHere - 1) % 127;
+        } else {
+            startingHere = (startingHere - 1) % 127;
+        }
     }
 }
