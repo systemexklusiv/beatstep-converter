@@ -45,7 +45,7 @@ public class StartAtConverter implements HasConverter {
         if (isInverted) {
             startingHere = (startingHere - 1) % 127;
         } else {
-            startingHere = (startingHere - 1) % 127;
+            startingHere = (startingHere + 1) % 127;
         }
     }
 }
