@@ -39,7 +39,7 @@ public class Constants {
                 + "I wrote this app because the UI editor of the beatstep is anoying me with too many repeating tasks.. so I descied instead of spending hours of clicking and scrolling in writing this tool :-D" + System.lineSeparator()
                 + "Application arguments must be supplied like: --OPTION=VALUE" + System.lineSeparator()
                 + "Where one option is followed by one number or one text for input and output directory or nothing (than the equals is omitted) as explained in the list of arguments below" + System.lineSeparator()
-                + "Note that each option starts with a double minus followed by the name (better copy paste it!) and an equals symbol and ohne digit or text or nothing" + System.lineSeparator()
+                + "Note that each option starts with a double minus followed by the name (better copy paste it!) and an equals symbol and a digit or a word or nothing" + System.lineSeparator()
                 + "example: $ beatstep-converter --allChannel=0 --allPadToOptionSwitchedControl --source=source-source-preset.beatstep --target=target-source-preset.beatstep " + System.lineSeparator()
                 + "This will take the original file called source-source-preset.beatstep set all knobs and pads to channel 1, sets all pads to option switchedCC (instead of the default midi note)" + System.lineSeparator() +
                 "and create a new file named target-source-preset.beatstep. the resulting file will be created" + System.lineSeparator()
