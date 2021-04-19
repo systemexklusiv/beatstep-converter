@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>net.systemexklusiv.controllerman</groupId>
 	<artifactId>beatstep-converter</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>beatstep-converter</name>
-	<description>converts beatstep files </description>
+	<description>converts beatstep files</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -52,6 +52,17 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>application.properties</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
+
+
 
 </project>

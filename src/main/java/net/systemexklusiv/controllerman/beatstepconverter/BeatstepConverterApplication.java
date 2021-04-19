@@ -32,6 +32,12 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 	@Qualifier("transformBeatstepPreset")
 	private Job transformBeatstepPreset;
 
+	@Value("${application.name}")
+	private String applicationName;
+
+	@Value("${build.version}")
+	private String buildVersion;
+
 	private static final Logger logger = LoggerFactory.getLogger(BeatstepConverterApplication.class);
 
 	public static void main(String[] args) {
@@ -167,7 +173,7 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 	}
 
 	private void printInstructions() {
-		logger.info(Options.manual());
+		logger.info(Options.manual(applicationName, buildVersion));
 	}
 
 }
