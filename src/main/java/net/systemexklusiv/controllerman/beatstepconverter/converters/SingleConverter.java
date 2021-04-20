@@ -1,21 +1,24 @@
 package net.systemexklusiv.controllerman.beatstepconverter.converters;
 
+import net.systemexklusiv.controllerman.beatstepconverter.Constants;
 import net.systemexklusiv.controllerman.beatstepconverter.ControllerEntry;
 
-public class ChannelConverter implements HasConverter {
+public class SingleConverter implements HasConverter {
     ControllerEntry.ControllerType conversionRelevantForThisControllerType;
-    int targetChannel;
+    int targetField; // CONTROL_MODE, CHANNEL, CC_MAX CC_MIN..
+    int target;
 
-    public ChannelConverter(ControllerEntry.ControllerType conversionRelevantForThisControllerType, int targetChannel) {
+    public SingleConverter(ControllerEntry.ControllerType conversionRelevantForThisControllerType, int targetField ,int targetValue) {
         this.conversionRelevantForThisControllerType = conversionRelevantForThisControllerType;
-        this.targetChannel = targetChannel;
+        this.targetField = targetField;
+        this.target = targetValue;
     }
 
     @Override
     public String convert(ControllerEntry.ControllerType currentControllerType, int beatstepFeatureNum, String value) {
         if (currentControllerType.equals(conversionRelevantForThisControllerType)) {
-            if (beatstepFeatureNum == ControllerEntry.CONTROL_CHANNEL) {
-                value = String.valueOf(targetChannel);
+            if (beatstepFeatureNum == targetField) {
+                value = String.valueOf(target);
             }
         }
         return value;

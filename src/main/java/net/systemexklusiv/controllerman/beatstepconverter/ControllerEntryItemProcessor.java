@@ -58,21 +58,21 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
             knobStartAtConverter = new StartAtConverter(Integer.valueOf(knobStartingFrom), ControllerEntry.ControllerType.KNOB, ControllerEntry.CONTROL_MODE_CC, true);
 
         if (allPadChannel != null)
-            padChannelConverter = new ChannelConverter(ControllerEntry.ControllerType.PAD, Integer.valueOf(allPadChannel));
+            padChannelConverter = new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_CHANNEL, Integer.valueOf(allPadChannel));
         if (allKnobChannel != null)
-            knobChannelConverter = new ChannelConverter(ControllerEntry.ControllerType.KNOB, Integer.valueOf(allKnobChannel));
+            knobChannelConverter = new SingleConverter(ControllerEntry.ControllerType.KNOB,  ControllerEntry.CONTROL_CHANNEL, Integer.valueOf(allKnobChannel));
 
-        if (allPadToOptionMidiNote != null) padOptionConverter = new OptionConverter(ControllerEntry.ControllerType.PAD, Integer.valueOf(ControllerEntry.CONTROL_MODE_NOTE));
+        if (allPadToOptionMidiNote != null) padOptionConverter = new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_MODE, Integer.valueOf(ControllerEntry.CONTROL_MODE_NOTE));
 
-        if (allPadToOptionSwitchedControl != null) padOptionConverter = new OptionConverter(ControllerEntry.ControllerType.PAD, Integer.valueOf(ControllerEntry.CONTROL_MODE_SWITCHED_CC));
+        if (allPadToOptionSwitchedControl != null) padOptionConverter = new SingleConverter(ControllerEntry.ControllerType.PAD,  ControllerEntry.CONTROL_MODE, Integer.valueOf(ControllerEntry.CONTROL_MODE_SWITCHED_CC));
 
-        if (allPadMin != null) padMinConverter = new MinConverter(ControllerEntry.ControllerType.PAD, Integer.valueOf(allPadMin));
+        if (allPadMin != null) padMinConverter = new SingleConverter(ControllerEntry.ControllerType.PAD,  ControllerEntry.CC_MIN, Integer.valueOf(allPadMin));
 
-        if (allPadMax != null) padMaxConverter = new MaxConverter(ControllerEntry.ControllerType.PAD, Integer.valueOf(allPadMax));
+        if (allPadMax != null) padMaxConverter = new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.CC_MAX, Integer.valueOf(allPadMax));
 
-        if (allKnobMin != null) knobMaxConverter = new MinConverter(ControllerEntry.ControllerType.KNOB, Integer.valueOf(allKnobMin));
+        if (allKnobMin != null) knobMinConverter = new SingleConverter(ControllerEntry.ControllerType.KNOB, ControllerEntry.CC_MIN, Integer.valueOf(allKnobMin));
 
-        if (allKnobMax != null) knobMaxConverter = new MaxConverter(ControllerEntry.ControllerType.KNOB, Integer.valueOf(allKnobMax));
+        if (allKnobMax != null) knobMaxConverter = new SingleConverter(ControllerEntry.ControllerType.KNOB, ControllerEntry.CC_MAX, Integer.valueOf(allKnobMax));
     }
 
     @Override

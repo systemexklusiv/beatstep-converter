@@ -1,8 +1,7 @@
 package net.systemexklusiv.controllerman.beatstepconverter;
 
-import net.systemexklusiv.controllerman.beatstepconverter.converters.ChannelConverter;
 import net.systemexklusiv.controllerman.beatstepconverter.converters.HasConverter;
-import net.systemexklusiv.controllerman.beatstepconverter.converters.OptionConverter;
+import net.systemexklusiv.controllerman.beatstepconverter.converters.SingleConverter;
 import net.systemexklusiv.controllerman.beatstepconverter.converters.StartAtConverter;
 import net.systemexklusiv.controllerman.beatstepconverter.ControllerEntry.ControllerType;
 import org.junit.Assert;
@@ -55,7 +54,7 @@ class BeatstepConverterTests {
 	@Test
 	void Test_ChannelConverter() {
 		String expected = "15";
-		HasConverter padChannelConverter = new ChannelConverter(ControllerType.PAD, 15);
+		HasConverter padChannelConverter = new SingleConverter(ControllerType.PAD, ControllerEntry.CONTROL_CHANNEL,15);
 
 		String value = padChannelConverter.convert(ControllerType.PAD, ControllerEntry.CONTROL_CHANNEL, "7");
 
@@ -65,7 +64,7 @@ class BeatstepConverterTests {
 	@Test
 	void Test_PAD_OptionConverter() {
 		String expected = "8"; // control option switched cc
-		HasConverter optionsConverter = new OptionConverter(ControllerType.PAD, Integer.valueOf(ControllerEntry.CONTROL_MODE_SWITCHED_CC));
+		HasConverter optionsConverter = new SingleConverter(ControllerType.PAD, ControllerEntry.CONTROL_MODE, Integer.valueOf(ControllerEntry.CONTROL_MODE_SWITCHED_CC));
 
 		String value = optionsConverter.convert(ControllerType.PAD, ControllerEntry.CONTROL_MODE, ControllerEntry.CONTROL_MODE_NOTE);
 
@@ -75,7 +74,7 @@ class BeatstepConverterTests {
 	@Test
 	void Test_KNOB_OptionConverter() {
 		String expected = "8"; // control option switched cc
-		HasConverter optionsConverter = new OptionConverter(ControllerType.KNOB, Integer.valueOf(ControllerEntry.CONTROL_MODE_SWITCHED_CC));
+		HasConverter optionsConverter = new SingleConverter(ControllerType.KNOB, ControllerEntry.CONTROL_MODE, Integer.valueOf(ControllerEntry.CONTROL_MODE_SWITCHED_CC));
 
 		String value = optionsConverter.convert(ControllerType.KNOB, ControllerEntry.CONTROL_MODE, ControllerEntry.CONTROL_MODE_NOTE);
 
