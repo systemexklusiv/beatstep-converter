@@ -51,7 +51,8 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 //		paramsBuilder.addString("source", source);
 //		paramsBuilder.addString("target", target);
 
-		if (args.getSourceArgs().length == 0) {
+		if (args.getOptionNames().size() == 0) {
+			logger.warn("There are no arguments supplied! There must be at least the --source=path/to/your/source/file and an instruction like --allChannel=5 to make this do something usefull ;-).Read instructions below.");
 				printInstructions();
 				System.exit(0);
 
