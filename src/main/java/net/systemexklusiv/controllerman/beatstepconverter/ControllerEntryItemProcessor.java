@@ -5,6 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEntry, ControllerEntry> {
 
     private static final Logger log = LoggerFactory.getLogger(ControllerEntry.class);
@@ -28,8 +31,10 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
     HasConverter knobMinConverter;
     HasConverter knobMaxConverter;
 
+    List<HasConverter> converters = new ArrayList<>();
+
     public ControllerEntryItemProcessor(
-             String allChannel
+            String allChannel
             , String allKnobChannel
             , String allPadChannel
             , String padNoteStartingAt
@@ -46,33 +51,46 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
 
         this.allChannel = allChannel;
 
-        if (padNoteStartingAt != null)
+        if (padNoteStartingAt != null) {
             padNoteStartAtConverter = new StartAtConverter(Integer.valueOf(padNoteStartingAt), ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_MODE_NOTE, false);
-        if (padNoteStartingFrom != null)
+            converters.add(padNoteStartAtConverter);
+        } else if (padNoteStartingFrom != null) {
             padNoteStartAtConverter = new StartAtConverter(Integer.valueOf(padNoteStartingFrom), ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_MODE_NOTE, true);
+            converters.add(padNoteStartAtConverter);
+        }
 
 
-        if (knobStartingAt != null)
+        if (knobStartingAt != null) {
             knobStartAtConverter = new StartAtConverter(Integer.valueOf(knobStartingAt), ControllerEntry.ControllerType.KNOB, ControllerEntry.CONTROL_MODE_CC, false);
-        if (knobStartingFrom != null)
+            converters.add(knobStartAtConverter);
+        } else if (knobStartingFrom != null) {
             knobStartAtConverter = new StartAtConverter(Integer.valueOf(knobStartingFrom), ControllerEntry.ControllerType.KNOB, ControllerEntry.CONTROL_MODE_CC, true);
+            converters.add(knobStartAtConverter);
+        }
 
         if (allPadChannel != null)
-            padChannelConverter = new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_CHANNEL, Integer.valueOf(allPadChannel));
+            converters.add(padChannelConverter = new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_CHANNEL, Integer.valueOf(allPadChannel)));
+
         if (allKnobChannel != null)
-            knobChannelConverter = new SingleConverter(ControllerEntry.ControllerType.KNOB,  ControllerEntry.CONTROL_CHANNEL, Integer.valueOf(allKnobChannel));
+            converters.add(knobChannelConverter = new SingleConverter(ControllerEntry.ControllerType.KNOB, ControllerEntry.CONTROL_CHANNEL, Integer.valueOf(allKnobChannel)));
 
-        if (allPadToOptionMidiNote != null) padOptionConverter = new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_MODE, Integer.valueOf(ControllerEntry.CONTROL_MODE_NOTE));
+        if (allPadToOptionMidiNote != null)
+            converters.add(padOptionConverter = new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_MODE, Integer.valueOf(ControllerEntry.CONTROL_MODE_NOTE)));
 
-        if (allPadToOptionSwitchedControl != null) padOptionConverter = new SingleConverter(ControllerEntry.ControllerType.PAD,  ControllerEntry.CONTROL_MODE, Integer.valueOf(ControllerEntry.CONTROL_MODE_SWITCHED_CC));
+        if (allPadToOptionSwitchedControl != null)
+            converters.add(padOptionConverter = new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.CONTROL_MODE, Integer.valueOf(ControllerEntry.CONTROL_MODE_SWITCHED_CC)));
 
-        if (allPadMin != null) padMinConverter = new SingleConverter(ControllerEntry.ControllerType.PAD,  ControllerEntry.CC_MIN, Integer.valueOf(allPadMin));
+        if (allPadMin != null)
+            converters.add(padMinConverter = new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.CC_MIN, Integer.valueOf(allPadMin)));
 
-        if (allPadMax != null) padMaxConverter = new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.CC_MAX, Integer.valueOf(allPadMax));
+        if (allPadMax != null)
+            converters.add(padMaxConverter = new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.CC_MAX, Integer.valueOf(allPadMax)));
 
-        if (allKnobMin != null) knobMinConverter = new SingleConverter(ControllerEntry.ControllerType.KNOB, ControllerEntry.CC_MIN, Integer.valueOf(allKnobMin));
+        if (allKnobMin != null)
+            converters.add(knobMinConverter = new SingleConverter(ControllerEntry.ControllerType.KNOB, ControllerEntry.CC_MIN, Integer.valueOf(allKnobMin)));
 
-        if (allKnobMax != null) knobMaxConverter = new SingleConverter(ControllerEntry.ControllerType.KNOB, ControllerEntry.CC_MAX, Integer.valueOf(allKnobMax));
+        if (allKnobMax != null)
+            converters.add(knobMaxConverter = new SingleConverter(ControllerEntry.ControllerType.KNOB, ControllerEntry.CC_MAX, Integer.valueOf(allKnobMax)));
     }
 
     @Override
@@ -93,34 +111,10 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
                     value = allChannel;
                 }
             }
-            if (this.padNoteStartAtConverter != null) {
-                value = padNoteStartAtConverter.convert(controllerEntry.controllerType, featureNum, value);
-            }
 
-            if (this.padChannelConverter != null) {
-                value = padChannelConverter.convert(controllerEntry.controllerType, featureNum, value);
-            }
-            if (this.knobChannelConverter != null) {
-                value = knobChannelConverter.convert(controllerEntry.controllerType, featureNum, value);
-            }
-
-            if (this.padOptionConverter != null) {
-                value = padOptionConverter.convert(controllerEntry.controllerType, featureNum, value);
-            }
-            if (this.padMinConverter != null) {
-                value = padMinConverter.convert(controllerEntry.controllerType, featureNum, value);
-            }
-
-            if (this.padMaxConverter != null) {
-                value = padMaxConverter.convert(controllerEntry.controllerType, featureNum, value);
-            }
-
-            if (this.knobMinConverter != null) {
-                value = knobMinConverter.convert(controllerEntry.controllerType, featureNum, value);
-            }
-
-            if (this.knobMaxConverter != null) {
-                value = knobMaxConverter.convert(controllerEntry.controllerType, featureNum, value);
+            for (HasConverter converter : converters
+            ) {
+                value = converter.convert(controllerEntry.controllerType, featureNum, value);
             }
 
         }
