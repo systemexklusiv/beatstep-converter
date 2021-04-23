@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEntry, ControllerEntry> {
 
-    private static final Logger log = LoggerFactory.getLogger(ControllerEntry.class);
+    private static final Logger log = LoggerFactory.getLogger(ControllerEntryItemProcessor.class);
     private final String allChannel;
     //    private final String knobChannelStartingAt;
 //    private final String padChannelStartingAt;
