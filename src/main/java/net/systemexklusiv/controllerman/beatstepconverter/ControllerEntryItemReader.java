@@ -31,8 +31,13 @@ public class ControllerEntryItemReader extends AbstractItemStreamItemReader<Cont
                     ControllerEntry.ControllerType controllerType = ControllerEntry.ControllerType.NOT_PROCESSED_BY_THIS_TOOL;
                     String[] fieldPartials = partials[0].split("_");
                     if (fieldPartials.length > 1) {
-
-                        int controllId = Integer.parseInt(fieldPartials[0].replaceAll("\"*",""));
+                        String controllIdStr = fieldPartials[0].replaceAll("\"*","");
+                        int controllId = -1;
+                        try {
+                            controllId = Integer.parseInt(controllIdStr);
+                        } catch (NumberFormatException e) {
+                            logger.info("--- control-id {} not transformable, will pipe it through unaltered", controllIdStr);
+                        }
                         String controlFeatureAsString = fieldPartials[1];
                         if (controllId >= 32 && controllId <= 47 ) {
                             controllerType = ControllerEntry.ControllerType.KNOB;
