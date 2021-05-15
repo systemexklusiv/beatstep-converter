@@ -156,9 +156,9 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 		logger.info("Your application started with option names : {}", args.getSourceArgs());
 		jobLauncher.run(transformBeatstepPreset, paramsBuilder.toJobParameters());
 	}
-
+	private static final int GLOBAL_CHANNEL = 65;
 	private void checkChannel(int channel) {
-		if (channel < 0  ||  channel > 15 ) {
+		if (channel < 0  ||  channel > 15 || channel == GLOBAL_CHANNEL ) {
 			logger.error("Channel must be in range 0 to 15! You supplied: " + channel);
 			printInstructions();
 			System.exit(1);
