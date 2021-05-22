@@ -62,15 +62,17 @@ public class Constants {
                 + PREFIX +  ALL_PAD_CHANNEL + "= 0 to 15 and 65 for the global-channel -> Sets the midichannel for all Pads. 0 means channel 1 and 15 channel 16" + System.lineSeparator()
                 + PREFIX +  PAD_NOTE_STARTING_AT + "=0 to 127 -> when set to e.g. 16 the 16 pads will be set to note where pad #1 is note 16, pad 2 note 17 so on" + System.lineSeparator()
                 + PREFIX +  PAD_NOTE_STARTING_FROM + "=0 to 127 -> when set to e.g. 16 the 16 pads will be set to note where pad #1 is note 16, pad 2 note 15, pad 3 note 14 so on" + System.lineSeparator()
-                + PREFIX +  ALL_PAD_TO_OPTION_MIDI_NOTE + " followed by no = and further params -> sets all pads to midi note" + System.lineSeparator()
-                + PREFIX + ALL_PAD_TO_OPTION_SWITCHED_CONTROL + " followed by no = and further params -> sets all pads to switched control" + System.lineSeparator()
+                + PREFIX +  ALL_PAD_TO_OPTION_MIDI_NOTE + " [NO EQUALS, NO VALUE] -> sets all pads to midi note" + System.lineSeparator()
+                + PREFIX + ALL_PAD_TO_OPTION_SWITCHED_CONTROL + " [NO EQUALS, NO VALUE] -> sets all pads to switched control" + System.lineSeparator()
                 + PREFIX +  PAD_NOTE_STARTING_AT + "=0 to 127 -> when set to e.g. 16 the 16 pads will be set to note where pad #1 is note 16, pad 2 note 17 so on" + System.lineSeparator()
                 +  PREFIX + KNOB_CC_STARTING_AT + "=0 to 127 -> when set to e.g. 16 the 16 knobs will be set to cc where knobs #1 is cc 16, knobs 2 cc 17 so on" + System.lineSeparator()
                 +  PREFIX + KNOB_CC_STARTING_FROM + "=0 to 127 -> when set to e.g. 16 the 16 knobs will be set to cc where knobs #1 is cc 16, knobs 2 cc 15, knobs 3 cc 14 so on" + System.lineSeparator()
                 +  PREFIX + ALL_KNOB_MIN + "=0 to 127 -> sets the min for all knobs together" + System.lineSeparator()
                 +  PREFIX + ALL_KNOB_MAX + "=0 to 127 -> sets the max for all knobs together" + System.lineSeparator()
                 +  PREFIX + ALL_PAD_MIN + "=0 to 127 -> sets the min for all pads together" + System.lineSeparator()
-                +  PREFIX + ALL_PAD_MAX + "=0 to 127 -> sets the max for all pads together" + System.lineSeparator()
+                +  PREFIX + ALL_PAD_MIN + "=0 to 127 -> sets the min for all pads together" + System.lineSeparator()
+                +  PREFIX + ALL_PAD_TO_TOGGLE + " [NO EQUALS, NO VALUE] -> sets all Pads to toggle" + System.lineSeparator()
+                +  PREFIX + ALL_PAD_TO_GATE + " [NO EQUALS, NO VALUE] -> sets all Pads to gte" + System.lineSeparator()
                 + "Have Fun and share your results :-)";
         }
 
