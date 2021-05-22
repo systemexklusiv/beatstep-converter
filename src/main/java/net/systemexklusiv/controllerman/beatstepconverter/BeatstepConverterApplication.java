@@ -140,6 +140,14 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 			paramsBuilder.addString(Options.ALL_PAD_MAX, args.getOptionValues(Options.ALL_PAD_MAX).get(0));
 		}
 
+		if (args.containsOption(Options.ALL_PAD_TO_TOGGLE)) {
+			paramsBuilder.addString(Options.ALL_PAD_TO_TOGGLE, "true");
+		}
+
+		if (args.containsOption(Options.ALL_PAD_TO_GATE)) {
+			paramsBuilder.addString(Options.ALL_PAD_TO_GATE, "true");
+		}
+
 		if (args.containsOption(Options.SOURCE)) {
 			paramsBuilder.addString(Options.SOURCE, args.getOptionValues(Options.SOURCE).get(0));
 		}
@@ -158,7 +166,11 @@ public class BeatstepConverterApplication implements ApplicationRunner {
 	}
 	private static final int GLOBAL_CHANNEL = 65;
 	private void checkChannel(int channel) {
-		if (channel < 0  ||  channel > 15 || channel == GLOBAL_CHANNEL ) {
+
+		if (channel == GLOBAL_CHANNEL) {
+			logger.error("Setting to global channel " + channel);
+		}
+		else if (channel < 0  ||  channel > 15 ) {
 			logger.error("Channel must be in range 0 to 15! You supplied: " + channel);
 			printInstructions();
 			System.exit(1);

@@ -21,6 +21,9 @@ public class ControllerEntry {
     public static final int CC_MIN = 4; // Values 0-127
     public static final int CC_MAX = 5; // Values 0-127
     public static final int OPTION = 6; // Values 0-> toggle, 1 -> Gate OR WHEN KNOB 0 -> absolute, 1-3 -> relative 1-3
+    public static final int OPTION_TOGGLE = 0;
+    public static final int OPTION_GATE = 1;
+
 
     String field;
     String value;

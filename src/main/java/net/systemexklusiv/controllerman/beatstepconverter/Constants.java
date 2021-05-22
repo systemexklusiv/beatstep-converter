@@ -29,6 +29,8 @@ public class Constants {
         public static final String ALL_PAD_TO_OPTION_SWITCHED_CONTROL = "allPadToOptionSwitchedControl";
         public static final String ALL_PAD_MIN = "allPadMin";
         public static final String ALL_PAD_MAX = "allPadMax";
+        public static final String ALL_PAD_TO_TOGGLE = "allPadToToggle";
+        public static final String ALL_PAD_TO_GATE = "allPadToGate";
 
         private static final String PREFIX = "--";
         public static final String DEFAULT_TARGET_FILENAME = "createdByBeatstepConverter.beatstep";

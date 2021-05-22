@@ -51,7 +51,9 @@ public class BatchConfiguration {
             @Value("#{jobParameters['allKnobMin']}") String allKnobMin,
             @Value("#{jobParameters['allKnobMax']}") String allKnobMax,
             @Value("#{jobParameters['knobCcStartingAt']}") String knobCcStartingAt,
-            @Value("#{jobParameters['knobCcStartingFrom']}") String knobCcStartingFrom
+            @Value("#{jobParameters['knobCcStartingFrom']}") String knobCcStartingFrom,
+            @Value("#{jobParameters['allPadToToggle']}") String allPadToToggle,
+            @Value("#{jobParameters['allPadToGate']}") String allPadToGate
 
                                                   ) {
         return new ControllerEntryItemProcessor(
@@ -67,7 +69,9 @@ public class BatchConfiguration {
                 allKnobMin,
                 allKnobMax,
                 knobCcStartingAt,
-                knobCcStartingFrom
+                knobCcStartingFrom,
+                allPadToToggle,
+                allPadToGate
                 );
     }
     @Bean

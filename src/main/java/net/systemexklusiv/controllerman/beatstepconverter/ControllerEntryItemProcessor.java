@@ -47,6 +47,8 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
             , String allKnobMax
             , String knobStartingAt
             , String knobStartingFrom
+            , String allPadToToggle
+            , String allPadToGate
     ) {
 
         this.allChannel = allChannel;
@@ -91,6 +93,12 @@ public class ControllerEntryItemProcessor implements ItemProcessor<ControllerEnt
 
         if (allKnobMax != null)
             converters.add(knobMaxConverter = new SingleConverter(ControllerEntry.ControllerType.KNOB, ControllerEntry.CC_MAX, Integer.valueOf(allKnobMax)));
+
+        if (allPadToToggle != null)
+            converters.add(new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.OPTION, ControllerEntry.OPTION_TOGGLE));
+
+        if (allPadToGate != null)
+            converters.add(new SingleConverter(ControllerEntry.ControllerType.PAD, ControllerEntry.OPTION, ControllerEntry.OPTION_GATE));
     }
 
     @Override
